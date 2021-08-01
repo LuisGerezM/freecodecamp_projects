@@ -1,0 +1,1 @@
+alert("Please select test suite name: 'Tribute Page', and run test")

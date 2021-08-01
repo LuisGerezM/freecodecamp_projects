@@ -1,0 +1,78 @@
+* {
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  background: linear-gradient(
+    -80deg,
+    rgba(60, 153, 144, 0.79) 25%,
+    rgba(42, 97, 168, 0.79) 55%,
+    rgb(32, 0, 255)
+  );
+}
+
+.contenedor {
+  width: 90%;
+  background-color: #d0fffb;
+  margin: 10% auto;
+  padding: 5px 7px 30px 15px;
+  border-radius: 15px;
+}
+
+.font-size {
+  font-size: 15px;
+}
+
+.present-title {
+  text-align: center;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  justify-content: space-around; /* pace-around COLOCA un espacio al INICO al MEDIO y al FINAL del mismo TAMAÑO */
+}
+
+.button {
+  width: 100%;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 25px;
+  height: auto;
+  color: hsl(0, 0%, 100%);
+  padding: 10px;
+  margin: auto;
+}
+
+.diseño-web-responsivo {
+  background-color: rgb(25, 118, 210);
+  border: solid #1a4c77 2px;
+  color: hsl(0, 0%, 100%);
+}
+
+.diseño-web-responsivo:hover {
+  background-color: rgb(17, 77, 138);
+  border: solid #11324e 2px;
+  color: hsl(0, 0%, 100%);
+}
+
+footer {
+  background: hsl(208, 92%, 53%);
+  width: 90%;
+  margin: auto;
+  padding: 5px 5px;
+  border-radius: 15px;
+}
+
+.attribution {
+  font-size: 12px;
+  text-align: center;
+  color: white;
+}
+
+.attribution a {
+  color: hsl(182, 100%, 94%);
+  font-weight: bold !important;
+}
