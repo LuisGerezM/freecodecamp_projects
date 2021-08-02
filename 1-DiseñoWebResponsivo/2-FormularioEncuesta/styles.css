@@ -1,0 +1,53 @@
+body{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-size: 20px;
+}
+
+label{
+    color:  hsl(227, 47%, 96%); 
+}
+
+input{
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-color: hsl(228, 34%, 66%);
+}
+
+select{
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: hsl(227, 47%, 96%);
+ }
+
+textarea:focus, 
+input:focus, 
+select:focus {
+    border-color:  hsl(0, 0%, 100%);
+    box-shadow: 0 1px 1px  hsl(208, 92%, 53%)inset, 0 0 8px rgba(60, 153, 144, 0.79);
+    outline: 0 none;
+}
+
+/* input:focus {
+    Background-color: hsl(0, 0%, 100%);
+   
+    border:5px solid #000;
+} */
+
+.container{
+    max-width: 100%;
+    padding: 25px;
+    background: linear-gradient(
+        -80deg,
+        rgba(60, 153, 144, 0.79) 25%,
+        rgba(42, 97, 168, 0.79) 55%,
+        hsl(203, 89%, 53%)
+      );
+}
+
+#title,
+#description{
+    color:  hsl(227, 47%, 96%);
+    font-weight: bold;
+}
