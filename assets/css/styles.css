@@ -58,12 +58,23 @@ body {
 }
 
 .formulario-encuesta {
-  background-color: rgb(25, 173, 210);
+  background-color: rgb(21, 149, 181);
   border: solid #1a4c77 2px;
 }
 
 .formulario-encuesta:hover {
-  background-color: rgb(17, 138, 138);
+  background-color:  rgb(17, 71, 124);
+  border: solid #116568 2px;
+  color: hsl(0, 0%, 100%);
+}
+
+.landing-page {
+  background-color: rgb(18, 129, 157);
+  border: solid #1a4c77 2px;
+}
+
+.landing-page:hover {
+  background-color:  rgb(15, 54, 94);
   border: solid #116568 2px;
   color: hsl(0, 0%, 100%);
 }
