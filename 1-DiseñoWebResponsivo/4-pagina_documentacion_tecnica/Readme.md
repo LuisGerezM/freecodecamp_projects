@@ -42,3 +42,6 @@ User Story #15: My Technical Documentation page should use at least one media qu
 ```
 
 ## You can build your project by using this CodePen template and clicking Save to create your own pen. Or you can use this CDN link to run the tests in any environment you like: **https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js**
+
+### Versión en codepen
+### **https://codepen.io/luisgerezm/pen/gOXZRBR**
