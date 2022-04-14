@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link href="./style.css" rel="stylesheet" />
+    <title>Desafios Algoritmos de JavaScript y Estructuras de Datos - FreeCodeCamp </title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col col-12 col-md-4">
+                <nav id="navbar">
+                    <header class="py-3 ps-4"><strong>Desafios para Certificación JS</strong></header>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link py-3 ps-4" href="#Comprobador_Palindromos">Comprobador Palindromos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-3 ps-4" href="#Conversor_Numero_Romano">Conversor Numero Romano</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link py-3 ps-4" href="#Cifrado_Cesar ">Cifrado Cesar </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link py-3 ps-4" href="#Validando_Nros_Telefono_US">Validando Nros Telefono US
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link py-3 ps-4" href="#Caja_Registradora">Caja Registradora </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col col-12 col-md-8 my-3">
+                <main id="main-doc">
+                    <div class="row">
+                        <div class="col">
+                            <hr>
+                            <section class="main-section" id="Comprobador_Palindromos">
+                                <header class="d-flex justify-content-center my-3">
+                                    <a class="btn btn-outline-primary"
+                                        href="https://github.com/LuisGerezM/freecodecamp_projects/blob/master/2-AlgoritmosJavaScriptEstructurasDatos/a-comprobadorPalindromos/comprobadorPalindromos.js"
+                                        target="_blank">
+                                        <h1>Comprobador Palindromos</h1>
+                                    </a>
+                                </header>
+                                <article>
+                                    <h3>Consigna</h3>
+                                    <p>Devuelve true si la cadena proporcionada es un palíndromo. De lo contrario,
+                                        devuelve false.</p>
+
+                                    <p> Un palíndromo es una palabra o frase que se escribe de la misma manera hacia
+                                        adelante y hacia atrás, ignorando la puntuación, mayúsculas, minúsculas y
+                                        espaciado.</p>
+
+                                    <p> Nota: Tendrás que eliminar todos los caracteres no alfanuméricos (puntuación,
+                                        espacios y símbolos) y convertir todo en mayúsculas o minúsculas para comprobar
+                                        si hay palíndromos.</p>
+
+                                    <p> Pasaremos cadenas con formatos variables, como <kbd>racecar</kbd>,
+                                        <kbd>RaceCar</kbd> y <kbd>race CAR</kbd> entre
+                                        otros.
+                                    </p>
+
+                                    <p> También pasaremos cadenas con símbolos especiales, como <kbd>2A3*3a2</kbd>,
+                                        <kbd>2A3 3a2</kbd> y
+                                        <kbd>2_A3*3#A2</kbd>.
+                                    </p>
+
+                                    <p>
+                                    <h5>CÓDIGO:</h5>
+                                    </p>
+                                    <code>const searchCharacter = (arrCharacters, indexStart, indexMakeCut) => {
+                                        // deovlvemos el caracter, indexStart -> indica el caracter de inicio; arrCharacters.length - indexMakeCut -> indica cuál tomar.
+                                        return arrCharacters.slice(indexStart, arrCharacters.length - indexMakeCut);
+                                      };
+                                      
+                                      // funcion principal
+                                      function palindrome(str) {
+                                        let strToLower = str.toLowerCase();
+                                        let arr = strToLower.split("");
+                                      
+                                        // filtramos array de sólo letras y números
+                                        let arrCharacters = arr.filter((item) => /[a-zA-Z0-9]/.test(item));
+                                      
+                                        // obtenemos mitad de la longitud
+                                        let arrLengthCheck = parseInt(arrCharacters.length / 2);
+                                      
+                                        let isPalin = true;
+                                        // para iniciar desde el último
+                                        let indexStart = -1;
+                                        // cantidad de elementos a tomar
+                                        let indexMakeCut = 0;
+                                      
+                                        for (let i = 0; i < arrLengthCheck; i++) {
+                                          // obtenemos uno por uno desde el último caracter
+                                          let lastCharacterToCompare = searchCharacter(
+                                            arrCharacters,
+                                            indexStart,
+                                            indexMakeCut
+                                          );
+                                      
+                                          if (lastCharacterToCompare[0] !== arrCharacters[i]) {
+                                            // son distintos
+                                            isPalin = false;
+                                            return isPalin;
+                                          }
+                                      
+                                          indexStart--;
+                                          indexMakeCut++;
+                                        }
+                                        // si todos fueron iguales, retornamos true
+                                        return isPalin;
+                                      }
+                                      
+                                      console.log(palindrome("eye"))
+                                    </code>
+
+                                    <p>
+                                        <h5>PRUEBAS:</h5>
+                                        </p>
+                                    <code class="tests">palindrome("eye") debe devolver un booleano.</code>
+                                    <code class="tests">palindrome("eye") debe devolver true.</code>
+                                    <code class="tests">palindrome("_eye") debe devolver true</code>
+                                    <code class="tests">palindrome("race car") debe devolver true.</code>
+                                    <code class="tests">palindrome("not a palindrome") debe devolver false.</code>
+                                    <code
+                                        class="tests">palindrome("A man, a plan, a canal. Panama") debe devolver true.</code>
+                                    <code class="tests">palindrome("never odd or even") debe devolver true.</code>
+                                    <code class="tests">palindrome("nope") debe devolver false.</code>
+                                    <code class="tests">palindrome("almostomla") debe devolver false.</code>
+                                    <code
+                                        class="tests">palindrome("My age is 0, 0 si ega ym.") debe devolver true.</code>
+                                    <code class="tests">palindrome("1 eye for of 1 eye.") debe devolver false.</code>
+                                    <code class="tests">palindrome("0_0 (: /-\ :) 0-0") debe devolver true.</code>
+                                    <code class="tests">palindrome("five|\_/|four") debe devolver false.</code>
+                                </article>
+                            </section>
+                            <hr>
+                            <section class="main-section" id="Conversor_Numero_Romano">
+                                <header class="d-flex justify-content-center my-3">
+                                    <a class="btn btn-outline-primary"
+                                        href="https://github.com/LuisGerezM/freecodecamp_projects/blob/master/2-AlgoritmosJavaScriptEstructurasDatos/b-conversorNumeroRomano/conversorNumeroRomano.js"
+                                        target="_blank">
+                                        <h1>Conversor Numero Romano</h1>
+                                    </a>
+                                </header>
+                                <article>
+                                    <h3>Consigna</h3>
+                                    <p>
+                                        Convierte el número proporcionado en un número romano.
+                                        Todos los números romanos deben proporcionarse en mayusculas.
+                                    </p>
+                                    <p>
+                                    <h5>CÓDIGO:</h5>
+                                    </p>
+                                    <code>function convertToRoman(num) {
+                                            // array con valores por defecto
+                                            let romanNums = {
+                                              M: 1000,
+                                              CM: 900,
+                                              D: 500,
+                                              CD: 400,
+                                              C: 100,
+                                              XC: 90,
+                                              L: 50,
+                                              XL: 40,
+                                              X: 10,
+                                              IX: 9,
+                                              V: 5,
+                                              IV: 4,
+                                              I: 1,
+                                            };
+                                          
+                                            let strResult = "";
+                                          
+                                            for (let number in romanNums) {
+                                              // buscamos en romanNums el menor o igual que nuestro num; y a nuestro num le restamos el valor de romanNums
+                                              // ej: 36 -> number = X; 36 = 36 - 10
+                                              for (; num >= romanNums[number]; num -= romanNums[number]) {
+                                                // concatenamos en strResult el valor en ROMANO
+                                                strResult += number;
+                                              }
+                                            }
+                                          
+                                            return strResult;
+                                          }
+                                          
+                                          console.log(convertToRoman(36));
+                                        </code>
+
+                                        <p>
+                                            <h5>PRUEBAS:</h5>
+                                            </p>
+                                    <code class="tests">convertToRoman(2) debe devolver la cadena II.</code>
+                                    <code class="tests">convertToRoman(3) debe devolver la cadena III.</code>
+                                    <code class="tests">convertToRoman(4) debe devolver la cadena IV.</code>
+                                    <code class="tests">convertToRoman(5) debe devolver la cadena V.</code>
+                                    <code class="tests">convertToRoman(9) debe devolver la cadena IX.</code>
+                                    <code class="tests">convertToRoman(12) debe devolver la cadena XII.</code>
+                                    <code class="tests">convertToRoman(16) debe devolver la cadena XVI.</code>
+                                    <code class="tests">convertToRoman(29) debe devolver la cadena XXIX.</code>
+                                    <code class="tests">convertToRoman(44) debe devolver la cadena XLIV.</code>
+                                    <code class="tests">convertToRoman(45) debe devolver la cadena XLV.</code>
+                                    <code class="tests">convertToRoman(68) debe devolver la cadena LXVIII</code>
+                                    <code class="tests">convertToRoman(83) debe devolver la cadena LXXXIII</code>
+                                    <code class="tests">convertToRoman(1023) debe devolver la cadena MXXIII</code>
+                                    <code class="tests">convertToRoman(2014) debe devolver la cadena MMXIV</code>
+                                    <code class="tests">convertToRoman(3999) debe devolver la cadena MMMCMXCIX</code>
+
+                                </article>
+                            </section>
+                            <hr>
+                            <section class="main-section" id="Cifrado_Cesar">
+                                <header class="d-flex justify-content-center my-3">
+                                    <a class="btn btn-outline-primary"
+                                        href="https://github.com/LuisGerezM/freecodecamp_projects/blob/master/2-AlgoritmosJavaScriptEstructurasDatos/c-cifradoCesar/cifradoCesar.js"
+                                        target="_blank">
+                                        <h1>Cifrado Cesar</h1>
+                                    </a>
+                                </header>
+                                <article>
+                                    <h3>Consigna</h3>
+                                    <p>Uno de los cifrados más simples y conocidos es el cifrado César, también conocido
+                                        como cifrado por desplazamiento. En un cifrado por desplazamiento los
+                                        significados de las letras se desplazan por una cantidad determinada.</p>
+
+                                    <p> Un uso moderno común es el cifrado <kbd>ROT13</kbd>, donde los valores de las
+                                        letras son
+                                        desplazados por 13 lugares. Así que <kbd>A ↔ N</kbd>, <kbd>B ↔ O</kbd> y así
+                                        sucesivamente.</p>
+
+                                    <p> Escribe una función que reciba una cadena codificada en <kbd>ROT13</kbd> como
+                                        entrada y
+                                        devuelva una cadena decodificada.</p>
+
+                                    <p> Todas las letras estarán en mayúsculas. No transformes ningún carácter no
+                                        alfabético (espacios, puntuación, por ejemplo), pero si transmítelos.</p>
+
+                                    <p>
+                                    <h5>CÓDIGO:</h5>
+                                    </p>
+                                    <code>const searchLetter = (letter) => {
+                                        // letras abcdario
+                                        const letters = [
+                                          "A",
+                                          "B",
+                                          "C",
+                                          "D",
+                                          "E",
+                                          "F",
+                                          "G",
+                                          "H",
+                                          "I",
+                                          "J",
+                                          "K",
+                                          "L",
+                                          "M",
+                                          "N",
+                                          "O",
+                                          "P",
+                                          "Q",
+                                          "R",
+                                          "S",
+                                          "T",
+                                          "U",
+                                          "V",
+                                          "W",
+                                          "X",
+                                          "Y",
+                                          "Z",
+                                        ];
+                                      
+                                        // mitad abcdario
+                                        let startSearch = 13;
+                                        // buscamos indice de la letra en abcdario
+                                        let indexLetter = letters.indexOf(letter);
+                                      
+                                        // si indice es mayor a 13 -> retornamos letra cuya ubicacion es ( indexLetter - startSearch), ej, letter S -> indexLetter = 18, entonces 18 - 13 --> retornamos F, ya que letters[5] = F ; Sino, retornamos de la misma forma, pero de la otra mita, ej, letter: E -> indexLetter 4 --> letters[indexLetter (4) + startSearch (13)] = R
+                                        return indexLetter >= 13
+                                          ? letters[indexLetter - startSearch]
+                                          : letters[indexLetter + startSearch];
+                                      };
+                                      
+                                      function rot13(str) {
+                                        //  ROT13, -> https://en.wikipedia.org/wiki/ROT13
+                                      
+                                        // Input	ABCDEFGHIJKLM NOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz
+                                        // Output	NOPQRSTUVWXYZ ABCDEFGHIJKLM nopqrstuvwxyzabcdefghijklm
+                                      
+                                        let strResult = "";
+                                      
+                                        // dividimos str en un array con las letras
+                                        let arrStr = str.split("");
+                                      
+                                        for (let i = 0; i < arrStr.length; i++) {
+                                          // nos interesa sólo letras (en mayusculas)
+                                          if (/[A-Z]/.test(arrStr[i])) {
+                                            // es letra, buscamos el reemplazo
+                                            strResult += searchLetter(arrStr[i]);
+                                          } else {
+                                            // no es letra
+                                            strResult += arrStr[i];
+                                          }
+                                        }
+                                      
+                                        return strResult;
+                                      }
+                                      
+                                      console.log(rot13("SERR PBQR PNZC"));
+                                    </code>
+
+                                    <p>
+                                        <h5>PRUEBAS:</h5>
+                                        </p>
+                                    <code class="tests">rot13("SERR PBQR PNZC");</p></code>
+                                    <code
+                                        class="tests">rot13("SERR PBQR PNZC") debe decodificarse en la cadena FREE CODE CAMP</code>
+                                    <code
+                                        class="tests">rot13("SERR CVMMN!") debe decodificarse en la cadena FREE PIZZA!</code>
+                                    <code
+                                        class="tests">rot13("SERR YBIR?") debe decodificarse en la cadena FREE LOVE?</code>
+                                    <code
+                                        class="tests">rot13("GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT.") debe decodificarse en la cadena THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.</code>
+                                </article>
+
+                            </section>
+                            <hr>
+                            <section class="main-section" id="Validando_Nros_Telefono_US">
+                                <header class="d-flex justify-content-center my-3">
+                                    <a class="btn btn-outline-primary"
+                                        href="https://github.com/LuisGerezM/freecodecamp_projects/blob/master/2-AlgoritmosJavaScriptEstructurasDatos/d-validandoNroTelefonoUS/validandoNroTelefonoUS.js"
+                                        target=" _blank">
+                                        <h1>Validando Nros Telefono US</h1>
+                                    </a>
+                                </header>
+                                <article>
+                                    <h3>Consigna</h3>
+
+
+                                    <p>Devuelve true si la cadena pasada concuerda con un número de teléfono válido en
+                                        Estados Unidos.</p>
+
+                                    <p>El usuario puede completar el campo del formulario de la forma que elija,
+                                        siempre que tenga el formato de un número estadounidense válido.</p>
+                                    <p> Los siguientes
+                                        ejemplos son de formatos válidos para números estadounidenses (consulte las
+                                        pruebas
+                                        a continuación para otras variantes):</p>
+
+                                    <p><kbd>555-555-5555</kbd></p>
+                                    <p><kbd>(555)555-5555</kbd></p>
+                                    <p><kbd>(555) 555-5555</kbd></p>
+                                    <p><kbd>555 555 5555</kbd></p>
+                                    <p><kbd>5555555555</kbd></p>
+                                    <p><kbd>1 555 555 5555</kbd></p>
+
+                                    <p>Para este desafío se te presentará una cadena como <kbd>800-692-7753</kbd> o
+                                        <kbd>8oo-six427676;laskdjf</kbd>.
+                                    </p>
+                                    <p>Tu trabajo es validar o rechazar el número de
+                                        teléfono
+                                        estadounidense basado en cualquier combinación de los formatos proporcionados
+                                        arriba.
+                                    </p>
+                                    <p>El código de área es obligatorio.
+                                    </p>
+                                    <p>Si el código de país es proporcionado, debes confirmar que el código de país es
+                                        1.</p>
+                                    <p> Devuelve true si la cadena es un
+                                        número de teléfono estadounidense valido; de lo contrario devuelve false.
+                                    </p>
+
+                                    <p>
+                                    <h5>CÓDIGO:</h5>
+                                    </p>
+                                    <code>function telephoneCheck(str) {
+                                          let resBool = false;
+                                        
+                                          // patron sin parentesis
+                                          let patternWithoutParentheses =
+                                            /^[1]?(\s)*(\d{3})+[-|\s]*(\d{3})+[-|\s]*\d{4}$/;
+                                        
+                                          // patron con parentesis
+                                          let patternWithParentheses =
+                                            /^[1]?(\s)*[\(]+(\d{3})+[\)]+[-|\s]*(\d{3})+[-|\s]*\d{4}$/;
+                                        
+                                          // ^[1]? ---> ?: El carácter anterior puede aparecer una sola vez o no aparecer ;;;  ^: ponerlo dentro del corchete [^] significa que	No exista cualquiera de los caracteres del interior de los corchetes, pero como lo ponemos AFUERA, quiere decir que no exista ningún otro número que NO sea el 1, y si APARECE, como le pusimos '?' sólo será 1 vez. ;;;
+                                          // (\s)* ---> *: puede no aparecer, o puede aparecer 1 o muchas veces. ;;; \s: espacio en blanco
+                                          // (\d{3})+ ---> +: puede aparecer 1 o muchas veces. ;;; \d{3}: digito de 3 números
+                                          // [-|\s]* ---> * y \s: ya mencionado ;;; |: OR ;;; -: que tenga un guión '-'
+                                          // $ ---> con lo que debe terminar el str ;;; (en este caso con un nro de 4 digitos)
+                                        
+                                          if (patternWithoutParentheses.test(str)) return (resBool = true);
+                                          if (patternWithParentheses.test(str)) return (resBool = true);
+                                        
+                                          return resBool;
+                                        }
+                                        
+                                        console.log(telephoneCheck("555-555-5555"));
+                                    </code>
+
+                                    <p>
+                                    <h5>PRUEBAS:</h5>
+                                    </p>
+                                    <code class="tests">telephoneCheck("555-555-5555") should return a boolean.</code>
+                                    <code class="tests">telephoneCheck("1 (555) 555-5555") should return true.</code>
+                                    <code class="tests">telephoneCheck("1 555-555-5555") should return true.</code>
+                                    <code class="tests">telephoneCheck("5555555555") should return true.</code>
+                                    <code class="tests">telephoneCheck("555-555-5555") should return true.</code>
+                                    <code class="tests">telephoneCheck("(555)555-5555") should return true.</code>
+                                    <code class="tests">telephoneCheck("1(555)555-5555") should return true.</code>
+                                    <code class="tests">telephoneCheck("555-5555") should return false.</code>
+                                    <code class="tests">telephoneCheck("5555555") should return false.</code>
+                                    <code class="tests">telephoneCheck("1 555)555-5555") should return false.</code>
+                                    <code class="tests">telephoneCheck("1 555 555 5555") should return true.</code>
+                                    <code class="tests">telephoneCheck("123**&!!asdf#") should return false.</code>
+                                    <code class="tests">telephoneCheck("2(757)6227382") should return false.</code>
+                                    <code class="tests">telephoneCheck("555)-555-5555") should return false.</code>
+                                    <code class="tests">telephoneCheck("11 555-555-5555") should return false.</code>
+
+                                </article>
+                            </section>
+                            <hr>
+                            <section class="main-section" id="Caja_Registradora">
+                                <header>
+                                    <header class="d-flex justify-content-center my-3">
+                                        <a class="btn btn-outline-primary"
+                                            href="https://github.com/LuisGerezM/freecodecamp_projects/blob/master/2-AlgoritmosJavaScriptEstructurasDatos/e-cajaRegistradora/cajaRegistradora.js"
+                                            target=" _blank">
+                                            <h1>Caja Registradora</h1>
+                                        </a>
+                                    </header>
+
+                                </header>
+                                <article>
+                                    <p>Diseña una función checkCashRegister() que acepte el precio de compra como
+                                        primer argumento (price), la cantidad pagada como segundo argumento (cash), y el
+                                        dinero
+                                        en efectivo que tiene la caja (cid) como tercer argumento.
+                                    </p>
+                                    <p>cid es un arreglo 2D que enumera las monedas disponibles.</p>
+
+                                    <p>La función <kbd>checkCashRegister()</kbd> siempre debe devolver un objeto con
+                                        una clave
+                                        status
+                                        y una clave change.</p>
+
+                                    <p>Devuelve <kbd>{status: "INSUFFICIENT_FUNDS", change: []</kbd>} si el efectivo
+                                        en caja es
+                                        menor
+                                        que el cambio necesario, o si no puedes devolver el cambio exacto.</p>
+
+                                    <p>Devuelve <kbd>{status: "CLOSED", change: [...]}</kbd> si el efectivo en caja
+                                        como valor
+                                        de la
+                                        clave change es igual al cambio que se debe entregar.</p>
+
+                                    <p>En cualquier otro caso, devuelve <kbd>{status: "OPEN", change: [...]}</kbd>,
+                                        con el
+                                        cambio a entregar en monedas y billetes, ordenados de mayor a menor, como valor
+                                        de
+                                        la clave
+                                        change.</p>
+
+                                    <p>Unidad Monetaria Importe</p>
+
+                                    <code>Penny $0.01 (PENNY)
+                                    Nickel $0.05 (NICKEL)
+                                    Dime $0.1 (DIME)
+                                    Quarter $0.25 (QUARTER)
+                                    Dollar $1 (ONE)
+                                    Five Dollars $5 (FIVE)
+                                    Ten Dollars $10 (TEN)
+                                    Twenty Dollars $20 (TWENTY)
+                                    One-hundred Dollars $100 (ONE HUNDRED)
+                                    </code>
+
+                                    <p>A continuación, un ejemplo del efectivo en caja en formato de arreglo:</p>
+
+                                    <kbd>[
+                                        ["PENNY", 1.01],
+                                        ["NICKEL", 2.05],
+                                        ["DIME", 3.1],
+                                        ["QUARTER", 4.25],
+                                        ["ONE", 90],
+                                        ["FIVE", 55],
+                                        ["TEN", 20],
+                                        ["TWENTY", 60],
+                                        ["ONE HUNDRED", 100]
+                                        ]
+                                    </kbd>
+
+                                    <p>
+                                    <h5>CÓDIGO:</h5>
+                                    </p>
+                                    <code>const checkCoinsInBox = (change, minorsCoins) => {
+                                        // recorremos todo el array de monedas que tenemos disponibles en caja
+                                        for (let i = 0; i < minorsCoins.length; i++) {
+                                          // cantidad de monedas que necesitaré de cada tipo
+                                          let amountCoinsNeededForType = 0;
+                                      
+                                          // cantidad de monedas disponibles en caja
+                                          let amountCoinsAvaible = minorsCoins[i][2];
+                                      
+                                          // condicion -> j no supera la cantidad que se dipone; y además, el cambio que resta saldar es mayor al valor de la moneda;
+                                          for (
+                                            let j = 0;
+                                            j < amountCoinsAvaible && change >= minorsCoins[i][1];
+                                            j++
+                                          ) {
+                                            change = Number((change - minorsCoins[i][1]).toFixed(2));
+                                            amountCoinsNeededForType++;
+                                      
+                                            // corroboro el cambio a otorgar
+                                            if (change === 0) {
+                                              // llego al cambio justo con lo que dispongo en caja
+                                              // inserto la cantidad de monedas en caja, del tipo que necesito para atender el cambio
+                                              minorsCoins[i].push(amountCoinsNeededForType);
+                                              return minorsCoins;
+                                            } else if (change < 0) {
+                                              // no llego al cambio justo con lo que dispongo en caja
+                                              return false;
+                                            }
+                                          }
+                                          // inserto la cantidad de monedas en caja, del tipo que necesito para atender el cambio
+                                          if (amountCoinsNeededForType > 0)
+                                            minorsCoins[i].push(amountCoinsNeededForType);
+                                        }
+                                      };
+                                      
+                                      function checkCashRegister(price, cash, cid) {
+                                        // cambio que debo atender
+                                        let change = cash - price;
+                                      
+                                        // obj a retornar
+                                        let moneyBack = {
+                                          status: "",
+                                          change: [],
+                                        };
+                                      
+                                        // array de monedas
+                                        let coins = [];
+                                      
+                                        // corroboro efectivo total
+                                        let efectTotal = cid
+                                          .map((item) => coins.push(item[0]) && item[1])
+                                          .reduce((acc, prev) => acc + prev, 0);
+                                      
+                                        // no dispongo de fondos en caja para solventar el cambio
+                                        if (efectTotal < change) {
+                                          moneyBack.status = "INSUFFICIENT_FUNDS";
+                                          return moneyBack;
+                                        }
+                                      
+                                        // fondos en caja es igual al cambio a solventar
+                                        if (efectTotal === change) {
+                                          moneyBack.status = "CLOSED";
+                                          moneyBack.change = cid;
+                                          return moneyBack;
+                                        }
+                                      
+                                        // array monedas con respectivo importe (VALOR) de c/u
+                                        let monetaryUnitAmount = [
+                                          ["PENNY", 0.01],
+                                          ["NICKEL", 0.05],
+                                          ["DIME", 0.1],
+                                          ["QUARTER", 0.25],
+                                          ["ONE", 1],
+                                          ["FIVE", 5],
+                                          ["TEN", 10],
+                                          ["TWENTY", 20],
+                                          ["ONE HUNDRED", 100],
+                                        ];
+                                      
+                                        // cantidad de monedas disponibles en caja por tipo; changeCoinsByType=[NOMBRE_MONEDA, VALOR_MONEDA, CANTIDAD_MONEDAS_EN_CAJA]
+                                        let changeCoinsByType = [];
+                                        for (let i = 0; i < cid.length; i++) {
+                                          changeCoinsByType.push([
+                                            cid[i][0],
+                                            monetaryUnitAmount[i][1],
+                                            cid[i][1] / monetaryUnitAmount[i][1],
+                                          ]);
+                                        }
+                                      
+                                        // ordenamos de mayor a menor el array de monedas disponibles en caja, por valor de moneda - para ir retirando la cantidad que se necesita de cada una partiendo de la mayor
+                                        changeCoinsByType.sort(function compareFunction(a, b) {
+                                          return a[1] > b[1] ? -1 : 1;
+                                        });
+                                      
+                                        // obtenemos sólo aquellas monedas que posiblemente podríamos usar para dar el cambio (no superan al cambio que tengo que atender)
+                                        let minorsCoins = changeCoinsByType.filter((item) => item[1] <= change);
+                                      
+                                        // armamos array con la cantidad de monedas que se necesita de cada tipo para solventar el cambio a atender;
+                                        // result = [ NOMBRE_MONEDA, VALOR_MONEDA, CANTIDAD_EN_CAJA, CANTIDAD_NECESARIA_PARA_SOLVENTAR_CAMBIO ]
+                                        // O, si NO dispongo de la cantidad necesaria para solventar el cambio --> result = false
+                                        let result = checkCoinsInBox(change, minorsCoins, changeCoinsByType);
+                                      
+                                        if (!result) {
+                                          // no hay fondos suficientes
+                                          moneyBack.status = "INSUFFICIENT_FUNDS";
+                                        } else {
+                                          // si hay fondos suficientes
+                                          moneyBack.status = "OPEN";
+                                      
+                                          // filtramos elementos que tengan 4 indices (el 4to indice es cantidad necesaria -> element[3]);
+                                          // Multiplicamos VALOR_MONEDA * CANTIDAD_NECESARIA_PARA_SOLVENTAR_CAMBIO
+                                          let arrResult = result
+                                            .map((element) => element[3] && [element[0], element[1] * element[3]])
+                                            .filter((item) => item !== undefined);
+                                      
+                                          // añadimos el array obtenido a propiedad change de obj moneyBack
+                                          moneyBack.change = arrResult;
+                                        }
+                                      
+                                        // retornamos
+                                        return moneyBack;
+                                      }
+                                      
+                                      console.log(
+                                        checkCashRegister(19.5, 20, [
+                                          ["PENNY", 1.01],
+                                          ["NICKEL", 2.05],
+                                          ["DIME", 3.1],
+                                          ["QUARTER", 4.25],
+                                          ["ONE", 90],
+                                          ["FIVE", 55],
+                                          ["TEN", 20],
+                                          ["TWENTY", 60],
+                                          ["ONE HUNDRED", 100],
+                                        ])
+                                      );
+                                    </code>
+
+                                    <p>
+                                    <h5>PRUEBAS:</h5>
+                                    </p>
+                                    <code
+                                        class="tests">heckCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]) debe devolver un objeto</code>
+                                    <code
+                                        class="tests">checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]) debe devolver {status: "OPEN", change: [["QUARTER", 0.5]]}</code>
+                                    <code
+                                        class="tests">checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]) debe devolver {status: "OPEN", change: [["TWENTY", 60], ["TEN", 20], ["FIVE", 15], ["ONE", 1], ["QUARTER", 0.5], ["DIME", 0.2], ["PENNY", 0.04]]}</code>
+                                    <code
+                                        class="tests">heckCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]) debe devolver {status: "INSUFFICIENT_FUNDS", change: []}</code>
+                                    <code
+                                        class="tests">checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]) debe devolver {status: "INSUFFICIENT_FUNDS", change: []}</code>
+                                    <code
+                                        class="tests">heckCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]) debe devolver {status: "CLOSED", change: [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]} </code>
+                                </article>
+                            </section>
+
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
