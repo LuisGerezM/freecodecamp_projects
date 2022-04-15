@@ -16,38 +16,26 @@ Pasaremos cadenas con formatos variables, como racecar, RaceCar y race CAR entre
 También pasaremos cadenas con símbolos especiales, como 2A3*3a2, 2A3 3a2 y 2_A3*3#A2.
 */
 
-const searchCharacter = (arrCharacters, indexStart, indexMakeCut) => {
-  // deovlvemos el caracter, indexStart -> indica el caracter de inicio; arrCharacters.length - indexMakeCut -> indica cuál tomar.
-  return arrCharacters.slice(indexStart, arrCharacters.length - indexMakeCut);
-};
+const searchChar = (arrChars, indexStart, indexMakeCut) =>
+  arrChars.slice(indexStart, arrChars.length - indexMakeCut);
 
-// funcion principal
+  
 function palindrome(str) {
   let strToLower = str.toLowerCase();
-  let arr = strToLower.split("");
+  let arrStr = strToLower.split("");
 
-  // filtramos array de sólo letras y números
-  let arrCharacters = arr.filter((item) => /[a-zA-Z0-9]/.test(item));
+  let arrChars = arrStr.filter((item) => /[a-zA-Z0-9]/.test(item));
 
-  // obtenemos mitad de la longitud
-  let arrLengthCheck = parseInt(arrCharacters.length / 2);
+  let cutArrayInHalf = parseInt(arrChars.length / 2);
 
   let isPalin = true;
-  // para iniciar desde el último
   let indexStart = -1;
-  // cantidad de elementos a tomar
   let indexMakeCut = 0;
 
-  for (let i = 0; i < arrLengthCheck; i++) {
-    // obtenemos uno por uno desde el último caracter
-    let lastCharacterToCompare = searchCharacter(
-      arrCharacters,
-      indexStart,
-      indexMakeCut
-    );
+  for (let i = 0; i < cutArrayInHalf; i++) {
+    let lastCharToCompare = searchChar(arrChars, indexStart, indexMakeCut);
 
-    if (lastCharacterToCompare[0] !== arrCharacters[i]) {
-      // son distintos
+    if (lastCharToCompare[0] !== arrChars[i]) {
       isPalin = false;
       return isPalin;
     }
@@ -55,12 +43,11 @@ function palindrome(str) {
     indexStart--;
     indexMakeCut++;
   }
-  // si todos fueron iguales, retornamos true
+
   return isPalin;
 }
 
-console.log(palindrome("eye"))
-
+console.log(palindrome("eye"));
 
 /**
 PRUEBAS:

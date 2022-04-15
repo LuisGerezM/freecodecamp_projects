@@ -43,73 +43,57 @@ A continuación, un ejemplo del efectivo en caja en formato de arreglo:
 
 */
 
-const checkCoinsInBox = (change, minorsCoins) => {
-  // recorremos todo el array de monedas que tenemos disponibles en caja
-  for (let i = 0; i < minorsCoins.length; i++) {
-    // cantidad de monedas que necesitaré de cada tipo
+const checkCoinsInBox = (change, moneyNotExceedChange) => {
+
+  for (let i = 0; i < moneyNotExceedChange.length; i++) {
+
     let amountCoinsNeededForType = 0;
+    let amountCoinsAvaible = moneyNotExceedChange[i][2];
 
-    // cantidad de monedas disponibles en caja
-    let amountCoinsAvaible = minorsCoins[i][2];
+    for (let j = 0; j < amountCoinsAvaible && change >= moneyNotExceedChange[i][1]; j++ ) {
 
-    // condicion -> j no supera la cantidad que se dipone; y además, el cambio que resta saldar es mayor al valor de la moneda;
-    for (
-      let j = 0;
-      j < amountCoinsAvaible && change >= minorsCoins[i][1];
-      j++
-    ) {
-      change = Number((change - minorsCoins[i][1]).toFixed(2));
+      change = Number((change - moneyNotExceedChange[i][1]).toFixed(2));
+
       amountCoinsNeededForType++;
 
-      // corroboro el cambio a otorgar
       if (change === 0) {
-        // llego al cambio justo con lo que dispongo en caja
-        // inserto la cantidad de monedas en caja, del tipo que necesito para atender el cambio
-        minorsCoins[i].push(amountCoinsNeededForType);
-        return minorsCoins;
+      
+        moneyNotExceedChange[i].push(amountCoinsNeededForType);
+        return moneyNotExceedChange;
+
       } else if (change < 0) {
-        // no llego al cambio justo con lo que dispongo en caja
         return false;
       }
     }
-    // inserto la cantidad de monedas en caja, del tipo que necesito para atender el cambio
+
     if (amountCoinsNeededForType > 0)
-      minorsCoins[i].push(amountCoinsNeededForType);
+      moneyNotExceedChange[i].push(amountCoinsNeededForType);
   }
 };
 
 function checkCashRegister(price, cash, cid) {
-  // cambio que debo atender
   let change = cash - price;
-
-  // obj a retornar
-  let moneyBack = {
+  let coins = [];
+  let changeToReturn = {
     status: "",
     change: [],
   };
 
-  // array de monedas
-  let coins = [];
-
-  // corroboro efectivo total
-  let efectTotal = cid
+  let totalCash = cid
     .map((item) => coins.push(item[0]) && item[1])
     .reduce((acc, prev) => acc + prev, 0);
 
-  // no dispongo de fondos en caja para solventar el cambio
-  if (efectTotal < change) {
-    moneyBack.status = "INSUFFICIENT_FUNDS";
-    return moneyBack;
+  if (totalCash < change) {
+    changeToReturn.status = "INSUFFICIENT_FUNDS";
+    return changeToReturn;
   }
 
-  // fondos en caja es igual al cambio a solventar
-  if (efectTotal === change) {
-    moneyBack.status = "CLOSED";
-    moneyBack.change = cid;
-    return moneyBack;
+  if (totalCash === change) {
+    changeToReturn.status = "CLOSED";
+    changeToReturn.change = cid;
+    return changeToReturn;
   }
 
-  // array monedas con respectivo importe (VALOR) de c/u
   let monetaryUnitAmount = [
     ["PENNY", 0.01],
     ["NICKEL", 0.05],
@@ -122,48 +106,40 @@ function checkCashRegister(price, cash, cid) {
     ["ONE HUNDRED", 100],
   ];
 
-  // cantidad de monedas disponibles en caja por tipo; changeCoinsByType=[NOMBRE_MONEDA, VALOR_MONEDA, CANTIDAD_MONEDAS_EN_CAJA]
-  let changeCoinsByType = [];
+  let changeCashByType = [];
   for (let i = 0; i < cid.length; i++) {
-    changeCoinsByType.push([
+    changeCashByType.push([
       cid[i][0],
       monetaryUnitAmount[i][1],
       cid[i][1] / monetaryUnitAmount[i][1],
     ]);
   }
 
-  // ordenamos de mayor a menor el array de monedas disponibles en caja, por valor de moneda - para ir retirando la cantidad que se necesita de cada una partiendo de la mayor
-  changeCoinsByType.sort(function compareFunction(a, b) {
+  changeCashByType.sort(function compareFunction(a, b) {
     return a[1] > b[1] ? -1 : 1;
   });
 
-  // obtenemos sólo aquellas monedas que posiblemente podríamos usar para dar el cambio (no superan al cambio que tengo que atender)
-  let minorsCoins = changeCoinsByType.filter((item) => item[1] <= change);
+  let moneyNotExceedChange = changeCashByType.filter(
+    (item) => item[1] <= change
+  );
 
-  // armamos array con la cantidad de monedas que se necesita de cada tipo para solventar el cambio a atender;
-  // result = [ NOMBRE_MONEDA, VALOR_MONEDA, CANTIDAD_EN_CAJA, CANTIDAD_NECESARIA_PARA_SOLVENTAR_CAMBIO ]
-  // O, si NO dispongo de la cantidad necesaria para solventar el cambio --> result = false
-  let result = checkCoinsInBox(change, minorsCoins, changeCoinsByType);
+  let numberMoneyNeededByType = checkCoinsInBox( change, moneyNotExceedChange, changeCashByType );
 
-  if (!result) {
-    // no hay fondos suficientes
-    moneyBack.status = "INSUFFICIENT_FUNDS";
+  if (!numberMoneyNeededByType) {
+    changeToReturn.status = "INSUFFICIENT_FUNDS";
+
   } else {
-    // si hay fondos suficientes
-    moneyBack.status = "OPEN";
 
-    // filtramos elementos que tengan 4 indices (el 4to indice es cantidad necesaria -> element[3]);
-    // Multiplicamos VALOR_MONEDA * CANTIDAD_NECESARIA_PARA_SOLVENTAR_CAMBIO
-    let arrResult = result
+    changeToReturn.status = "OPEN";
+
+    let arrMoneyWithChange = numberMoneyNeededByType
       .map((element) => element[3] && [element[0], element[1] * element[3]])
       .filter((item) => item !== undefined);
 
-    // añadimos el array obtenido a propiedad change de obj moneyBack
-    moneyBack.change = arrResult;
+    changeToReturn.change = arrMoneyWithChange;
   }
 
-  // retornamos
-  return moneyBack;
+  return changeToReturn;
 }
 
 console.log(

@@ -13,8 +13,7 @@ Todas las letras estarán en mayúsculas. No transformes ningún carácter no al
 
 */
 
-const searchLetter = (letter) => {
-  // letras abcdario
+const searchEncryptedLetter = (letter) => {
   const letters = [
     "A",
     "B",
@@ -44,35 +43,23 @@ const searchLetter = (letter) => {
     "Z",
   ];
 
-  // mitad abcdario
   let startSearch = 13;
-  // buscamos indice de la letra en abcdario
   let indexLetter = letters.indexOf(letter);
 
-  // si indice es mayor a 13 -> retornamos letra cuya ubicacion es ( indexLetter - startSearch), ej, letter S -> indexLetter = 18, entonces 18 - 13 --> retornamos F, ya que letters[5] = F ; Sino, retornamos de la misma forma, pero de la otra mita, ej, letter: E -> indexLetter 4 --> letters[indexLetter (4) + startSearch (13)] = R
   return indexLetter >= 13
     ? letters[indexLetter - startSearch]
     : letters[indexLetter + startSearch];
 };
 
 function rot13(str) {
-  //  ROT13, -> https://en.wikipedia.org/wiki/ROT13
-
-  // Input	ABCDEFGHIJKLM NOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz
-  // Output	NOPQRSTUVWXYZ ABCDEFGHIJKLM nopqrstuvwxyzabcdefghijklm
-
   let strResult = "";
 
-  // dividimos str en un array con las letras
   let arrStr = str.split("");
 
   for (let i = 0; i < arrStr.length; i++) {
-    // nos interesa sólo letras (en mayusculas)
     if (/[A-Z]/.test(arrStr[i])) {
-      // es letra, buscamos el reemplazo
-      strResult += searchLetter(arrStr[i]);
+      strResult += searchEncryptedLetter(arrStr[i]);
     } else {
-      // no es letra
       strResult += arrStr[i];
     }
   }
