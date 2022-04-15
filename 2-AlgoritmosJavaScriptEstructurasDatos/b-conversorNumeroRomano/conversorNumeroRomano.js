@@ -10,8 +10,7 @@ Todos los números romanos deben proporcionarse en mayusculas.
 */
 
 function convertToRoman(num) {
-  // array con valores por defecto
-  let romanNums = {
+  let defaultRomanNums = {
     M: 1000,
     CM: 900,
     D: 500,
@@ -29,12 +28,13 @@ function convertToRoman(num) {
 
   let strResult = "";
 
-  for (let number in romanNums) {
-    // buscamos en romanNums el menor o igual que nuestro num; y a nuestro num le restamos el valor de romanNums
-    // ej: 36 -> number = X; 36 = 36 - 10
-    for (; num >= romanNums[number]; num -= romanNums[number]) {
-      // concatenamos en strResult el valor en ROMANO
-      strResult += number;
+  for (let romanNumber in defaultRomanNums) {
+    for (
+      ;
+      num >= defaultRomanNums[romanNumber];
+      num -= defaultRomanNums[romanNumber]
+    ) {
+      strResult += romanNumber;
     }
   }
 

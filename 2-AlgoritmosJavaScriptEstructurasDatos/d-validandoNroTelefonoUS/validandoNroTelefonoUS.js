@@ -20,26 +20,18 @@ Para este desafío se te presentará una cadena como 800-692-7753 o 8oo-six42767
 */
 
 function telephoneCheck(str) {
-  let resBool = false;
+  let resultBoolean = false;
 
-  // patron sin parentesis
   let patternWithoutParentheses =
     /^[1]?(\s)*(\d{3})+[-|\s]*(\d{3})+[-|\s]*\d{4}$/;
 
-  // patron con parentesis
   let patternWithParentheses =
     /^[1]?(\s)*[\(]+(\d{3})+[\)]+[-|\s]*(\d{3})+[-|\s]*\d{4}$/;
 
-  // ^[1]? ---> ?: El carácter anterior puede aparecer una sola vez o no aparecer ;;;  ^: ponerlo dentro del corchete [^] significa que	No exista cualquiera de los caracteres del interior de los corchetes, pero como lo ponemos AFUERA, quiere decir que no exista ningún otro número que NO sea el 1, y si APARECE, como le pusimos '?' sólo será 1 vez. ;;;
-  // (\s)* ---> *: puede no aparecer, o puede aparecer 1 o muchas veces. ;;; \s: espacio en blanco
-  // (\d{3})+ ---> +: puede aparecer 1 o muchas veces. ;;; \d{3}: digito de 3 números
-  // [-|\s]* ---> * y \s: ya mencionado ;;; |: OR ;;; -: que tenga un guión '-'
-  // $ ---> con lo que debe terminar el str ;;; (en este caso con un nro de 4 digitos)
+  if (patternWithoutParentheses.test(str)) return (resultBoolean = true);
+  if (patternWithParentheses.test(str)) return (resultBoolean = true);
 
-  if (patternWithoutParentheses.test(str)) return (resBool = true);
-  if (patternWithParentheses.test(str)) return (resBool = true);
-
-  return resBool;
+  return resultBoolean;
 }
 
 console.log(telephoneCheck("555-555-5555"));
